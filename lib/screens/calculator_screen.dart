@@ -30,9 +30,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           ),
         ),
       ),
-      // backgroundColor: Colors.white24,
       body: Container(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
         child: Column(
           children: [
             Flexible(
@@ -88,23 +87,49 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       ),
                       title: Text('female'),
                     ),
-                    TextButton(
+                    ElevatedButton(
                       onPressed: () {
                         Calculator calc = Calculator(
                             height: height.toInt(), weight: weight.toInt());
-                        setState(() {
-                          resultWidget = Container(
-                            width: 600,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text('your BMI is ${calc.calculateBMI()}'),
-                                Text(calc.getResult()),
-                                Text(calc.getInteroretation())
-                              ],
-                            ),
-                          );
-                        });
+                        setState(
+                          () {
+                            resultWidget = Container(
+                              width: 600,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      text: 'your BMI is  ',
+                                      style: TextStyle(fontSize: 22),
+                                      children: [
+                                        TextSpan(
+                                          text: calc.calculateBMI(),
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF011627),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    calc.getResult(),
+                                    style: TextStyle(fontSize: 22),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    calc.getInteroretation(),
+                                    style: TextStyle(fontSize: 22),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        );
                       },
                       child: Text('Calculate'),
                     ),
@@ -125,7 +150,14 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   padding: EdgeInsets.all(customPadding),
                   child: Container(
                     color: Colors.amber,
-                    child: resultWidget ?? Text('Press Calculate button'),
+                    child: Center(
+                      child: resultWidget ??
+                          Text(
+                            'Press Calculate button',
+                            style: TextStyle(fontSize: 40),
+                            textAlign: TextAlign.center,
+                          ),
+                    ),
                   ),
                 ),
               ),
